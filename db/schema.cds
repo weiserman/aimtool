@@ -1,7 +1,7 @@
-namespace za.co.pnp;
-
 using { managed, Currency, cuid } from '@sap/cds/common';
 using { Attachments } from '@cap-js/attachments';
+
+namespace pnp;
 
 type WorkflowStatus : String enum {
     ERROR = 'ERROR';                // General error state

@@ -14,9 +14,18 @@
   "devDependencies": {
     "@cap-js/cds-types": "^0.8.0",
     "@cap-js/sqlite": "^1",
-    "@sap/cds-dk": "^8.7.0"
+    "@sap/cds-dk": "^8.7.0",
+    "rimraf": "^5.0.5",
+    "mbt": "^1.2.29"
   },
   "scripts": {
-    "start": "cds-serve"
-  }
+    "start": "cds-serve",
+    "undeploy": "cf undeploy aimtool --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "watch-application": "cds watch --open application/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/application"
+  ]
 }

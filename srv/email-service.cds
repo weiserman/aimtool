@@ -1,4 +1,4 @@
-using { za.co.pnp as db } from '../db/schema';
+using { pnp as db } from '../db/schema';
 
 service EmailService {
     @odata.draft.enabled: true
