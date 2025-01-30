@@ -1,4 +1,0 @@
-ID,email_ID,changeType,changedFields,oldValue,newValue,changedBy,changeDateTime,createdAt,createdBy,modifiedAt,modifiedBy
-046b6c7f-0b8a-4552-9e63-8c3abb76744c,3b4a618c-9c75-4f13-9bdc-54a6458f03dd,CREATE,emailSubject,{},{"emailSubject":"New Invoice"},admin@example.com,2024-03-20T10:00:00Z,2024-03-20T10:00:00Z,admin@example.com,2024-03-20T10:00:00Z,admin@example.com
-e89f6c7f-1234-4552-9e63-8c3abb76744d,3b4a618c-9c75-4f13-9bdc-54a6458f03dd,UPDATE,status,{"status":"NEW"},{"status":"OCR_COMPLETE"},system,2024-03-20T10:05:00Z,2024-03-20T10:05:00Z,system,2024-03-20T10:05:00Z,system
-f67d6c7f-5678-4552-9e63-8c3abb76744e,3b4a618c-9c75-4f13-9bdc-54a6458f03dd,UPDATE,status,{"status":"OCR_COMPLETE"},{"status":"APPROVED"},approver@example.com,2024-03-20T11:00:00Z,2024-03-20T11:00:00Z,approver@example.com,2024-03-20T11:00:00Z,approver@example.com 

@@ -31,17 +31,3 @@ entity InboundEmail : managed, cuid {
     invoiceAttachment : Composition of one Attachments;
     documents : Composition of many Attachments;
 }
-
-entity InboundEmailAuditLog : cuid, managed {
-    email          : Association to InboundEmail;
-    changeType     : String enum {
-        CREATE;
-        UPDATE;
-        DELETE
-    };
-    changedFields  : String;  // JSON string containing changed field names
-    oldValue       : String;  // JSON string containing old values
-    newValue       : String;  // JSON string containing new values
-    changedBy      : String;  // User who made the change
-    changeDateTime : Timestamp;
-}
