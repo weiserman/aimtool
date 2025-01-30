@@ -1,7 +1,8 @@
+namespace pnp;
+
 using { managed, Currency, cuid } from '@sap/cds/common';
 using { Attachments } from '@cap-js/attachments';
 
-namespace pnp;
 
 type WorkflowStatus : String enum {
     ERROR = 'ERROR';                // General error state
@@ -45,6 +46,60 @@ entity InboundEmail : managed, cuid {
     invoiceAttachment : Composition of one Attachments;
     documents : Composition of many Attachments;
     processingLogs : Composition of many ProcessingLog on processingLogs.email = $self;
+}
+
+
+entity Invoices : managed {
+    key invoiceID : String(50);
+    companyCode : String(10);
+    dueDate : Timestamp;
+    purchaseOrder : String(50);
+    doxPositionsJobID   : UUID;
+    doxLineItemsJobID   : UUID;
+    s3BucketKey         : String;
+    statuses            : Composition of many FlowStatuses
+                                  on statuses.invoice = $self;
+    comments            : Composition of many Comments
+                                  on comments.invoice = $self;
+}
+
+entity Comments : cuid, managed {
+    text    : String;
+    author  : String;
+    invoice : Association to Invoices;
+}
+
+entity FlowStatuses : cuid, managed {
+    invoice    : Association to Invoices;
+    processor  : Association to Projects_Users;
+    descriptor : WorkflowStatus;
+}
+
+
+entity Projects_Users : managed {
+    key project : Association to Projects;
+    key user    : Association to Users;
+        role    : Roles;
+        craft   : String;
+}
+
+type Roles          : String @assert.range enum {
+    ACCOUNTING_MEMBER        = 'ACCOUNTING_MEMBER';
+    VALIDATOR                = 'VALIDATOR';
+}
+
+entity Projects : cuid, managed {
+    name     : String;
+    users    : Composition of many Projects_Users
+                   on users.project = $self;
+}
+
+entity Users : managed {
+    key ID       : String; // user email
+        name     : String;
+        company  : String;
+        projects : Composition of many Projects_Users
+                       on projects.user = $self;
 }
 
 entity ProcessingLog : cuid, managed {
