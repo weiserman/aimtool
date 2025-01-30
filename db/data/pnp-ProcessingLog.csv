@@ -1,0 +1,4 @@
+ID,email_ID,activity,description,performedBy,systemActivity,successful,errorDetails
+b001,046e3230-1234-4321-a001-7cb642591001,EMAIL_RECEIVED,Invoice email received from Office Works SA,SYSTEM,true,true,
+b002,046e3230-1234-4321-a001-7cb642591001,SENT_TO_OCR,Document sent to OCR processing,SYSTEM,true,true,
+b003,046e3230-1234-4321-a001-7cb642591001,OCR_COMPLETED,OCR processing completed successfully with 95.5% confidence,SYSTEM,true,true, 

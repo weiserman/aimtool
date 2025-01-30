@@ -15,6 +15,20 @@ type WorkflowStatus : String enum {
     COMPLETED = 'COMPLETED';        // Workflow completed
 }
 
+// Processing Activity Types
+type ProcessingActivity : String enum {
+    EMAIL_RECEIVED;
+    SENT_TO_OCR;
+    OCR_COMPLETED;
+    OCR_FAILED;
+    VALIDATION_STARTED;
+    VALIDATION_COMPLETED;
+    REJECTION_EMAIL_SENT;
+    APPROVAL_EMAIL_SENT;
+    ERROR_OCCURRED;
+    SYSTEM_PROCESSED;
+}
+
 entity InboundEmail : managed, cuid {
     emailSubject : String(255);
     emailSender : String(255) @mandatory;
@@ -30,4 +44,15 @@ entity InboundEmail : managed, cuid {
     totalAttachmentCount : Integer;
     invoiceAttachment : Composition of one Attachments;
     documents : Composition of many Attachments;
+    processingLogs : Composition of many ProcessingLog on processingLogs.email = $self;
+}
+
+entity ProcessingLog : cuid, managed {
+    email           : Association to InboundEmail;
+    activity        : ProcessingActivity;
+    description     : String(1000);
+    performedBy     : String(256);
+    systemActivity  : Boolean default false;
+    successful      : Boolean default true;
+    errorDetails    : String(1000);
 }
