@@ -22,10 +22,6 @@
     "start": "cds-serve",
     "undeploy": "cf undeploy aimtool --delete-services --delete-service-keys --delete-service-brokers",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
-    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
-    "watch-application": "cds watch --open application/webapp/index.html?sap-ui-xx-viewCache=false"
-  },
-  "sapux": [
-    "app/application"
-  ]
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+  }
 }
