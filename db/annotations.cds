@@ -95,7 +95,6 @@ annotate service.ProcessingLog with @(
         }
     ],
     
-    // Add HeaderInfo for ProcessingLog
     UI.HeaderInfo : {
         TypeName : 'Processing Log',
         TypeNamePlural : 'Processing Logs',
@@ -123,32 +122,44 @@ annotate service.InboundEmail with {
                     LocalDataProperty : status,
                     ValueListProperty : 'status'
                 }
-            ],
-            PresentationVariantQualifier : 'StatusFilter'
+            ]
         },
-        UI.PresentationVariant #StatusFilter : {
+        UI.PresentationVariant : {
             GroupBy : ['status'],
-            Text : 'Status Filter',
             SortOrder : [{
                 Property : 'status'
-            }]
+            }],
+            MaxItems : 10,
+            Visualizations : ['@UI.LineItem#StatusList']
         }
-    );
+    )
 };
 
-// Add value list for StatusValues
+annotate service.InboundEmail with @(
+    UI.LineItem #StatusList : [
+        {
+            $Type : 'UI.DataField',
+            Value : status,
+            ![@UI.Importance] : #High
+        }
+    ]
+);
+
+// Add value list annotations for StatusValues
 annotate service.StatusValues with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Value : ID,
-            Label : 'Status Code'
+            Value : ID
         },
         {
             $Type : 'UI.DataField',
-            Value : name,
-            Label : 'Status Name'
+            Value : name
         }
+    ],
+    UI.SelectionFields : [
+        ID,
+        name
     ]
 );
 
