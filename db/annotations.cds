@@ -112,15 +112,47 @@ annotate service.ProcessingLog with @(
 
 // Add value help for status
 annotate service.InboundEmail with {
-    status @Common.Label : 'Status' @Common.ValueList : {
-        $Type : 'Common.ValueListType',
-        CollectionPath : 'InboundEmail',
-        Parameters : [
-            {
-                $Type : 'Common.ValueListParameterOut',
-                LocalDataProperty : status,
-                ValueListProperty : 'status',
-            }
-        ]
-    };
+    status @(
+        Common.Label : 'Status',
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'InboundEmail',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : status,
+                    ValueListProperty : 'status'
+                }
+            ],
+            PresentationVariantQualifier : 'StatusFilter'
+        },
+        UI.PresentationVariant #StatusFilter : {
+            GroupBy : ['status'],
+            Text : 'Status Filter',
+            SortOrder : [{
+                Property : 'status'
+            }]
+        }
+    );
+};
+
+// Add value list for StatusValues
+annotate service.StatusValues with @(
+    UI.LineItem : [
+        {
+            $Type : 'UI.DataField',
+            Value : ID,
+            Label : 'Status Code'
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : name,
+            Label : 'Status Name'
+        }
+    ]
+);
+
+annotate service.StatusValues with {
+    ID    @Common.Text : name  @Common.TextArrangement : #TextOnly;
+    name  @Common.Label : 'Status Name';
 }; 

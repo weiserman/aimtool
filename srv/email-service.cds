@@ -12,4 +12,10 @@ service EmailService {
         *,
         email
     };
+
+    // Expose the status values
+    entity StatusValues {
+        key ID   : String;
+        name     : String;
+    }
 }
